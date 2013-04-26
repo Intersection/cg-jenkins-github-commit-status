@@ -32,7 +32,7 @@ Java source files of the plugin.
 
     src/main/resources
 
-Jelly/Groovy views of the plugin. See this document for more about it.
+Jelly/Groovy views of the plugin. See this <a href="https://wiki.jenkins-ci.org/display/JENKINS/Architecture">document</a> for more about it.
 
     src/main/webapp
 
