@@ -1,30 +1,65 @@
-Product
-========
+Building a Plugin
+=================
 
-This directory is where your product should live. Treat this as the repo root from an application point of view.
+To build the plugin, run mvn install. This will create the file ./target/pluginname.hpi that can be deployed to jenkins.
 
-For Yii projects, this would be the location for:
+    $ mvn install
 
-* product
-    * yii
-    * webapp
-    * devops
 
-For Cinder projects, this would be the location for:
+Plugin Workspace Layout
+=======================
 
-* product
-    * include
-    * resources
-    * src
-    * vc10
-    * xcode
+The plugin workspace consists of the following major pieces:
 
-For Akka projects:
+    pom.xml
 
-* product
-    * project
-    * src
-        * main
-        * test
+Maven uses it for building your plugin.
 
-Etc, and so on, and so on.
+    src/main/java
+
+Java source files of the plugin.
+
+    src/main/resources
+
+Jelly/Groovy views of the plugin. See this <a href="https://wiki.jenkins-ci.org/display/JENKINS/Architecture">document</a> for more about it.
+
+    src/main/webapp
+
+Static resources of the plugin, such as images and HTML files.
+
+
+Debugging the Plugin
+====================
+
+Convenient:
+
+    $ mvn -Debug hpi:run
+
+Unix:
+
+    $ export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8000,suspend=n"
+    $ mvn hpi:run
+
+
+Windows:
+
+    > set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8000,suspend=n
+    > mvn hpi:run
+
+
+If you open http://localhost:8080/ in your browser, you should see the Jenkins page running in Jetty. 
+
+Changing port
+
+If you need to launch the Jenkins on a different port than 8080, set the port through the system property jetty.port.
+
+    $ mvn hpi:run -Djetty.port=8090
+
+Distributing a Plugin
+====================
+
+To create a distribution image of your plugin, run the following Maven command:
+
+    $ mvn package
+
+This should create target/*.hpi file. Other users can use Jenkins' web UI to upload this plugin to Jenkins (or place it in $JENKINS_HOME/plugins.)
