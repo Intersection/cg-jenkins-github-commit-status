@@ -44,7 +44,7 @@ Debugging the Plugin
 
 Convenient:
 
-    $ mvnDebug hpi:run
+    $ mvn -Debug hpi:run
 
 Unix:
 
