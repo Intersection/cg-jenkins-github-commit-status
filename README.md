@@ -22,16 +22,20 @@ Plugin Workspace Layout
 
 The plugin workspace consists of the following major pieces:
 
-pom.xml
+    pom.xml
+
 Maven uses it for building your plugin.
 
-src/main/java
+    src/main/java
+
 Java source files of the plugin.
 
-src/main/resources
+    src/main/resources
+
 Jelly/Groovy views of the plugin. See this document for more about it.
 
-src/main/webapp
+    src/main/webapp
+
 Static resources of the plugin, such as images and HTML files.
 
 
