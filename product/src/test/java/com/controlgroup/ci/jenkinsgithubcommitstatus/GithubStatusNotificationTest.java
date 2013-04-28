@@ -8,7 +8,6 @@ import hudson.model.Result;
 import hudson.slaves.EnvironmentVariablesNodeProperty;
 import org.apache.commons.io.FileUtils;
 import org.jvnet.hudson.test.HudsonTestCase;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.Random;
