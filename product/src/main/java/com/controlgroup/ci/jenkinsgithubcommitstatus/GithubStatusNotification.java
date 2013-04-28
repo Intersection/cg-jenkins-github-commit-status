@@ -46,9 +46,8 @@ public class GithubStatusNotification extends Notifier {
         //Get build environment variables such as git sha
         EnvVars envVars = new EnvVars();
         envVars = build.getEnvironment(listener);
-        listener.getLogger().println("Notifing github with status for sha: " + envVars.get("GIT_COMMIT"));
-
-        return true;    //To change body of overridden methods use File | Settings | File Templates.
+        listener.getLogger().println(String.format("POSTING Status of %s to /repos/%s/%s/statuses/%s",build.getResult().toString(),repoOwner,repoName,envVars.get("GIT_COMMIT")));
+        return true;
     }
 
     public String getRepoName() {
