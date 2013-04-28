@@ -15,7 +15,6 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Company: Control Group
@@ -46,6 +45,12 @@ public class GithubStatusNotification extends Notifier {
         //Get build environment variables such as git sha
         EnvVars envVars = new EnvVars();
         envVars = build.getEnvironment(listener);
+
+        //create notification
+        Notification notification = new Notification();
+        notification.setRepoName(repoName);
+        notification.setRepoOwner(repoOwner);
+        notification.setCommitSha(envVars.get("GIT_COMMIT"));
         listener.getLogger().println(String.format("POSTING Status of %s to /repos/%s/%s/statuses/%s",build.getResult().toString(),repoOwner,repoName,envVars.get("GIT_COMMIT")));
         return true;
     }
