@@ -1,3 +1,10 @@
+Testing a Plugin
+=================
+
+To run unit tests on the plugin, run mvn clean test. This will remove old class files, recompile the plugin and run unit tests.
+
+    $ mvn clean test
+
 Building a Plugin
 =================
 
@@ -33,7 +40,7 @@ Debugging the Plugin
 
 Convenient:
 
-    $ mvn -Debug hpi:run
+    $ mvn -Ddebug hpi:run
 
 Unix:
 
