@@ -70,3 +70,11 @@ To create a distribution image of your plugin, run the following Maven command:
     $ mvn package
 
 This should create target/*.hpi file. Other users can use Jenkins' web UI to upload this plugin to Jenkins (or place it in $JENKINS_HOME/plugins.)
+
+
+Notes:
+==========================================
+
+To get oauth token run the following:
+
+    $ curl -u '<github username>' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
