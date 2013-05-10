@@ -55,6 +55,12 @@ public class GithubStatusNotification extends Notifier {
         notification.setCommitSha(envVars.get("GIT_COMMIT"));
         notification.setAuthToken(authToken);
         notification.setBuildResult(build.getResult().toString().toLowerCase());
+        notification.setBuildDescription(String.format("Build %s %s in %s",envVars.get("BUILD_NUMBER"),build.getResult().toString(),build.getDurationString()));
+        notification.setTargetURI(envVars.get("BUILD_URL"));
+        listener.getLogger().println(envVars.get("BUILD_URL"));
+        listener.getLogger().println(build.getDurationString());
+
+//        build.getBuildStatusUrl()
         listener.getLogger().println(String.format("POSTING Status of %s to /repos/%s/%s/statuses/%s",build.getResult().toString().toLowerCase(),repoOwner,repoName,envVars.get("GIT_COMMIT")));
         //do post
         githubStatusAPI.doPost(listener,launcher,notification);
