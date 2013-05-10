@@ -26,16 +26,18 @@ import java.io.IOException;
  */
 public class GithubStatusNotification extends Notifier {
 
-    private final String repoName, repoOwner;
+    private final String repoName, repoOwner, authToken;
+    private static IGithubStatusAPI githubStatusAPI = new CurlImpl();
 
     public BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.BUILD;
     }
 
     @DataBoundConstructor
-    public GithubStatusNotification(String repoName, String repoOwner){
+    public GithubStatusNotification(String repoName, String repoOwner, String authToken){
         this.repoName = repoName;
         this.repoOwner = repoOwner;
+        this.authToken = authToken;
     }
 
     @Override
@@ -51,8 +53,16 @@ public class GithubStatusNotification extends Notifier {
         notification.setRepoName(repoName);
         notification.setRepoOwner(repoOwner);
         notification.setCommitSha(envVars.get("GIT_COMMIT"));
+        notification.setAuthToken(authToken);
+        notification.setBuildResult(build.getResult().toString());
         listener.getLogger().println(String.format("POSTING Status of %s to /repos/%s/%s/statuses/%s",build.getResult().toString(),repoOwner,repoName,envVars.get("GIT_COMMIT")));
+        //do post
+        githubStatusAPI.doPost(listener,launcher,notification);
         return true;
+    }
+
+    public String getAuthToken() {
+        return authToken;
     }
 
     public String getRepoName() {
@@ -72,6 +82,7 @@ public class GithubStatusNotification extends Notifier {
     public static class Descriptor extends BuildStepDescriptor<Publisher>{
         private String repoName;
         private String repoOwner;
+        private String authToken;
 
         @Override
         public boolean isApplicable(Class<? extends AbstractProject> aClass) {
@@ -88,6 +99,7 @@ public class GithubStatusNotification extends Notifier {
         public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
             repoName = json.getString("repoName");
             repoOwner = json.getString("repoOwner");
+            authToken = json.getString("authToken");
             save();
             return super.configure(req, json);
         }
@@ -106,6 +118,14 @@ public class GithubStatusNotification extends Notifier {
 
         public void setRepoOwner(String repoOwner) {
             this.repoOwner = repoOwner;
+        }
+
+        public String getAuthToken() {
+            return authToken;
+        }
+
+        public void setAuthToken(String authToken) {
+            this.authToken = authToken;
         }
     }
 }

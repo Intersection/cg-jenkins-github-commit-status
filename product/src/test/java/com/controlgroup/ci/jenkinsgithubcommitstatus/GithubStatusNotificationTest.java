@@ -23,6 +23,7 @@ public class GithubStatusNotificationTest extends HudsonTestCase{
     private final String TEST_SHA = "5645ab4q4345";
     private final String REPOSITORY_NAME = "testrepo";
     private final String REPOSITORY_OWNER = "controlgroup";
+    private final String AUTH_TOKEN = "TEST";
 
     public void setEnvironmentVariables() throws IOException {
         EnvironmentVariablesNodeProperty prop = new EnvironmentVariablesNodeProperty();
@@ -37,7 +38,7 @@ public class GithubStatusNotificationTest extends HudsonTestCase{
         //create new FreeStyle project
         FreeStyleProject project = createFreeStyleProject();
         //add plugin to project
-        project.getPublishersList().add(new GithubStatusNotification(REPOSITORY_NAME,REPOSITORY_OWNER));
+        project.getPublishersList().add(new GithubStatusNotification(REPOSITORY_NAME,REPOSITORY_OWNER,AUTH_TOKEN));
         //build
         FreeStyleBuild build = project.scheduleBuild2(0).get();
         //verify build
