@@ -1,6 +1,8 @@
 package com.controlgroup.ci.jenkinsgithubcommitstatus;
 
-import java.io.PrintStream;
+import hudson.Launcher;
+import hudson.model.BuildListener;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,5 +12,5 @@ import java.io.PrintStream;
  * To change this template use File | Settings | File Templates.
  */
 public interface IGithubStatusAPI {
-    public void doPost(PrintStream logger,Notification post);
+    public void doPost(BuildListener listener,Launcher launcher, Notification post);
 }

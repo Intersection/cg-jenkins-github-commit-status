@@ -15,4 +15,7 @@
   <f:entry title="Repository Name" field="repoName">
     <f:textbox/>
   </f:entry>
+  <f:entry title="OAuth Token" field="authToken">
+      <f:textbox/>
+    </f:entry>
 </j:jelly>
