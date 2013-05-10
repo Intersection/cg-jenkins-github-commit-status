@@ -26,10 +26,10 @@ public class CurlImpl implements IGithubStatusAPI {
             args.add("curl");
             //set auth token in header
             args.add("-H");
-            args.add(String.format("\"Authorization: token %s\"",post.getAuthToken()));
+            args.add(String.format("Authorization: token %s",post.getAuthToken()));
             //set status data
             args.add("--data"); //--data '{"state":"success"}'
-            args.add(String.format("'{\"state\":\"%s\"}'",post.getBuildResult()));
+            args.add(String.format("{\"state\":\"%s\"}",post.getBuildResult()));
         } else {
             //TODO WINDOWS IMPL OF CURL
         }

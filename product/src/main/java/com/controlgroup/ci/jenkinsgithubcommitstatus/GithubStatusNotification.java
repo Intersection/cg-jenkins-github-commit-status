@@ -54,8 +54,8 @@ public class GithubStatusNotification extends Notifier {
         notification.setRepoOwner(repoOwner);
         notification.setCommitSha(envVars.get("GIT_COMMIT"));
         notification.setAuthToken(authToken);
-        notification.setBuildResult(build.getResult().toString());
-        listener.getLogger().println(String.format("POSTING Status of %s to /repos/%s/%s/statuses/%s",build.getResult().toString(),repoOwner,repoName,envVars.get("GIT_COMMIT")));
+        notification.setBuildResult(build.getResult().toString().toLowerCase());
+        listener.getLogger().println(String.format("POSTING Status of %s to /repos/%s/%s/statuses/%s",build.getResult().toString().toLowerCase(),repoOwner,repoName,envVars.get("GIT_COMMIT")));
         //do post
         githubStatusAPI.doPost(listener,launcher,notification);
         return true;
